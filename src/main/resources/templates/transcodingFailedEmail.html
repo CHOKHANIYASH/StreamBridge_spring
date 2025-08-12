@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Transcoding Failed</title>
+</head>
+<body>
+<div style="padding: 20px; font-family: Arial, sans-serif; color: #333; background-color: #fff4f4;
+                border-radius: 10px; max-width: 500px; margin: 0 auto; border: 1px solid #f5c2c7;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 16px; line-height: 1.5;">
+
+    <h2 style="color: #b02a37;">⚠️ Video Transcoding Failed</h2>
+
+    <p>Hi <span th:text="${username}">User</span>,</p>
+
+    <p>We encountered an issue while processing your video
+        <strong th:text="${name}">Video Name</strong>.</p>
+
+    <p>Unfortunately, the transcoding process did not complete successfully.
+        Please try uploading the video again.</p>
+
+    <p>We’re sorry for the inconvenience and appreciate your patience.</p>
+
+    <br>
+
+    <p>Best Regards,<br>
+        <strong>StreamBridge Team</strong>
+    </p>
+</div>
+</body>
+</html>
