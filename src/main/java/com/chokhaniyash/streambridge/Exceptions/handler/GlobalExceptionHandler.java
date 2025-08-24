@@ -5,9 +5,12 @@ import com.chokhaniyash.streambridge.dto.response.ErrorResponse;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.method.MethodValidationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +27,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, exception.getStatus());
     }
 
-    @ExceptionHandler({MethodValidationException.class, ValidationException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class,MethodValidationException.class, ValidationException.class, NoResourceFoundException.class, HttpMessageNotReadableException.class})
     public ResponseEntity<ErrorResponse> validationExceptionHandler(Exception exception){
         ErrorResponse error = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
