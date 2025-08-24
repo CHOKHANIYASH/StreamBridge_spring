@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class VideoRequest {
     private String id;
     private String name;
-    @NotBlank(message = "username is required")
+//    @NotBlank(message = "username is required")
     private String username;
     @NotBlank(message = "content-type is required")
     @Pattern(regexp = "(?i)^video/mp4$", message = "Only MP4 files are allowed")
     private String contentType;
-    @NotBlank(message = "Email is required")
+//    @NotBlank(message = "Email is required")
     private String email;
 }
