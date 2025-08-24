@@ -22,14 +22,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         http.csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(requests ->
                         requests
                         .requestMatchers(HttpMethod.GET,"/api",
+                                "/api/users/all",
                                 "/api/videos/**",
-                                "/api/users/register",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
+                                .requestMatchers("/api/users/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/videos/success","/api/videos/fail").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -44,8 +47,9 @@ public class SecurityConfig {
     }
     private UrlBasedCorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*"));
-        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE"));
+        config.setAllowCredentials(true); // allow Authorization/cookies
+        config.addAllowedOriginPattern("*"); // allow all origins (supports credentials)
+        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**",config);
