@@ -72,17 +72,16 @@ public class VideoServiceImpl implements VideoService{
         String videoId = UUID.randomUUID().toString() +"."+ request.getContentType().split("/")[1]; // Generating the video id
         String presignedUploadUrl = getPresignedUploadUrl(videoId);
         String userId = authorization.getUserId();
-
+        UserEntity user = userRepository.findById(userId);
         BufferEntity buffer = BufferEntity.builder()
                 .videoId(videoId)
                 .name(request.getName())
-                .email(request.getEmail())
+                .email(user.getEmail())
                 .userId(userId)
-                .username(request.getUsername())
+                .username(user.getFirstName())
                 .build();
         bufferRepository.insertOne(buffer);
         Map<String, Object> response = new HashMap<>();
-        response.put("key", videoId);
         response.put("url", presignedUploadUrl);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
@@ -140,6 +139,11 @@ public class VideoServiceImpl implements VideoService{
         }
         videoRepository.deleteById(videoId);
         s3Util.removeObject(videoId);
+    }
+
+    @Override
+    public List<BufferEntity> getUserVideosInBuffer(String userId) {
+        return bufferRepository.findByUserId(userId);
     }
 
 

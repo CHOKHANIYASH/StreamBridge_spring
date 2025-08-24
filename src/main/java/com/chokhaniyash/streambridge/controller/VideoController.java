@@ -2,6 +2,7 @@ package com.chokhaniyash.streambridge.controller;
 
 import com.chokhaniyash.streambridge.dto.request.VideoRequest;
 import com.chokhaniyash.streambridge.dto.response.VideoResponse;
+import com.chokhaniyash.streambridge.entity.BufferEntity;
 import com.chokhaniyash.streambridge.service.VideoService;
 import com.chokhaniyash.streambridge.util.EmailUtil;
 import jakarta.mail.MessagingException;
@@ -46,6 +47,11 @@ public class VideoController {
     @GetMapping("/{id}")
     public VideoResponse getVideo(@PathVariable("id") String id){
         return videoService.getVideo(id);
+    }
+
+    @GetMapping("/user/buffer/{userId}")
+    public List<BufferEntity> getUserVideosInBuffer(@PathVariable("userId") String userId){
+        return videoService.getUserVideosInBuffer(userId);
     }
 
     @GetMapping("/user/{userId}")

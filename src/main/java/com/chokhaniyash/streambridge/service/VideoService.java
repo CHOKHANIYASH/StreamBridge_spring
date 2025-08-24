@@ -2,6 +2,7 @@ package com.chokhaniyash.streambridge.service;
 
 import com.chokhaniyash.streambridge.dto.request.VideoRequest;
 import com.chokhaniyash.streambridge.dto.response.VideoResponse;
+import com.chokhaniyash.streambridge.entity.BufferEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface VideoService {
     VideoResponse addVideo(String videoId);
     void uploadFail(String videoId);
     void deleteVideo(String videoId);
+    List<BufferEntity> getUserVideosInBuffer(String userId);
 }
